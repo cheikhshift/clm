@@ -28,3 +28,9 @@ Example
 	}
 	...
 	log.Fatal(http.ListenAndServe(port, nil) )
+
+### OS ulimits
+
+Make sure you're ulimits are high to prevent socket read errors. On linux :
+
+	$ ulimit -n 10000
