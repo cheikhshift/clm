@@ -45,7 +45,7 @@ func GetServerAvailable() (string,int) {
 	Host.Lock.Lock()
 	defer Host.Lock.Unlock()
 	for index,concount := range Host.Cache {
-		if concount < Limit {
+		if concount < Limit && concount != -404 {
 			Host.Cache[index] += 1
 			return fmt.Sprintf(IpFormat, TargetIP, (PostStart + index) ),index
 		}
@@ -105,7 +105,7 @@ func handleRequest(conn net.Conn) {
 	if err != nil {
 		Host.Lock.Lock()
 		defer Host.Lock.Unlock()
-		delete(Host.Cache, indx)
+		Host.Cache[indx] = -404
 		handleRequest(conn)
 		return
 	}
