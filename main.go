@@ -104,7 +104,10 @@ func handleRequest(conn net.Conn) {
 	ipaddr, indx := GetServerAvailable()
 	proxy, err := net.Dial("tcp",  ipaddr )
 	if err != nil {
-		log.Println(err)
+		Host.Lock.Lock()
+		defer Host.Lock.Unlock()
+		delete(Host.Cache, indx)
+		handleRequest(conn)
 		return
 	}
 	
