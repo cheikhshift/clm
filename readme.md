@@ -1,5 +1,7 @@
 # clm
-A simple load manager written in Go. CLM auto scales your application based on the flags supplied.
+A simple load manager written in Go. CLM auto scales your stateless application based on the flags supplied.
+
+** This does not support sessions as of now.!!!!
 
 ### CMD flags
 	$ clm -h
