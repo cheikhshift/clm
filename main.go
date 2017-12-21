@@ -122,7 +122,7 @@ func copyIO(src, dest net.Conn, index int) {
 		Host.Lock.Lock()
 		defer Host.Lock.Unlock()
 		Host.Cache[index] -=  1
-		fmt.Println(Host)
+		// fmt.Println(Host)
 	}
 
 
