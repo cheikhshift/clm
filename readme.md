@@ -15,7 +15,7 @@ A simple load manager written in Go. CLM auto scales your stateless application 
 	  -port string
 	    	Port to listen on. (default "8080")
 	  -wait int
-	    	Time to wait for server to start. (default 10)
+	    	Time to wait for server to start. (default 10 seconds)
 
 
 ### Go project setup
