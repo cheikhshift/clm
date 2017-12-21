@@ -12,11 +12,6 @@ import (
 	"io/ioutil"
 )
 
-
-
-
-
-
 // Data structures to manage 
 // web server instances
 type ServerHost struct {
@@ -44,7 +39,9 @@ func GetServerAvailable() (string,int) {
 	var index int
 	Host.Lock.Lock()
 	defer Host.Lock.Unlock()
+
 	for index,concount := range Host.Cache {
+
 		if concount < Limit && concount != -404 {
 			Host.Cache[index] += 1
 			return fmt.Sprintf(IpFormat, TargetIP, (PostStart + index) ),index
@@ -100,13 +97,16 @@ exit 0`, BinApp,ServerWait)
 }
 
 func handleRequest(conn net.Conn) {
+
 	ipaddr, indx := GetServerAvailable()
 	proxy, err := net.Dial("tcp",  ipaddr )
 	if err != nil {
-		Host.Lock.Lock()
-		defer Host.Lock.Unlock()
-		Host.Cache[indx] = -404
-		handleRequest(conn)
+
+		defer handleRequest(conn)
+		targetport := PostStart + indx
+		os.Setenv("PORT", fmt.Sprintf("%v", targetport) )
+		core.RunCmd(fmt.Sprintf("sh %s", bspath))
+		
 		return
 	}
 	
