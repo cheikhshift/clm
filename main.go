@@ -32,7 +32,6 @@ func NewCache() ServerHost {
 var (
 	BinApp string 
 	Limit int
-	ServCount int = 0
 	PostStart int = 60000
 	Host ServerHost
 	TargetIP string
